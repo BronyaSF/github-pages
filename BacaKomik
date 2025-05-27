@@ -1,0 +1,50 @@
+import { useState } from 'react';
+import { Home, Search, BookMarked, List } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+
+export default function BacaKomik() {
+  const [tab, setTab] = useState('home');
+
+  const renderContent = () => {
+    switch (tab) {
+      case 'home':
+        return <p>Selamat datang di BacaKomik!</p>;
+      case 'search':
+        return (
+          <div className="space-y-4">
+            <Input placeholder="Cari komik..." className="w-full" />
+            <p>Hasil pencarian akan muncul di sini.</p>
+          </div>
+        );
+      case 'bookmark':
+        return <p>Bookmark kamu akan tampil di sini.</p>;
+      case 'list':
+        return <p>Daftar komik terbaru dan populer akan tampil di sini.</p>;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-black text-white flex flex-col">
+      <header className="bg-blue-600 p-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">BC</h1>
+        <nav className="flex gap-4">
+          <Button variant="ghost" className="text-white" onClick={() => setTab('home')}><Home /></Button>
+          <Button variant="ghost" className="text-white" onClick={() => setTab('search')}><Search /></Button>
+          <Button variant="ghost" className="text-white" onClick={() => setTab('bookmark')}><BookMarked /></Button>
+          <Button variant="ghost" className="text-white" onClick={() => setTab('list')}><List /></Button>
+        </nav>
+      </header>
+      <main className="flex-1 p-6">
+        <Card>
+          <CardContent className="p-4 text-black bg-white rounded-xl">
+            {renderContent()}
+          </CardContent>
+        </Card>
+      </main>
+    </div>
+  );
+}
